@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+
+  pma_01:
+    image: phpmyadmin/phpmyadmin:5.2.1
+    container_name: pma-01
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=192.168.1.9
+      - PMA_PORT=3306
+      - PMA_USER=admin_db_mariadb_01
+      - PMA_PASSWORD=123456
+      - VIRTUAL_PORT=8080
+      - TERM=xterm
+    volumes:
+      - ./pma.conf/.htpasswd:/etc/apache2/.htpasswd
+      - ./pma.conf/default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - "8080:80"
+    networks:
+      - pma_network
+
+networks:
+  pma_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.12.0.0/24
+          gateway: 172.12.0.1
