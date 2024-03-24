@@ -8,10 +8,10 @@ services:
     restart: always
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=192.168.1.9
+      - PMA_HOST=172.10.0.1
       - PMA_PORT=3306
-      - PMA_USER=admin_db_mariadb_01
-      - PMA_PASSWORD=123456
+      # - PMA_USER=admin_db_mariadb_01
+      # - PMA_PASSWORD=123456
       - VIRTUAL_PORT=8080
       - TERM=xterm
     volumes:
@@ -28,5 +28,5 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.12.0.0/24
-          gateway: 172.12.0.1
+        - subnet: 172.10.0.0/24
+          gateway: 172.10.0.1
